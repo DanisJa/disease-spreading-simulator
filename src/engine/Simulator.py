@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List, Dict
 from ..models.State import State
 from ..config.SimulationConfig import SimulationConfig
 from ..models import Graph
@@ -11,11 +11,32 @@ class Simulator:
         self.config = config
         self.day = 0
         self.rng = get_random_generator()
+        self.history: List[Dict[str, int]] = []
 
     def tick(self):
         self._spread_infection()
         self._update_infections()
         self.day += 1
+        self._record_stats()
+        self.day += 1
+
+    def _record_stats(self):
+        counts =  {
+            'day': self.day,
+            'susceptible': self.graph.susceptible,
+            'infected': self.graph.infected,
+            'recovered': self.graph.recovered,
+        }
+
+        for node in self.graph.nodes:
+            if node.state == State.SUSCEPTIBLE:
+                counts['susceptible'] += 1
+            elif node.state == State.INFECTED:
+                counts['infected'] += 1
+            else:
+                counts['recovered'] += 1
+
+        self.history.append(counts)
 
     def _spread_infection(self):
         infected_nodes = [node for node in self.graph.nodes.values()
