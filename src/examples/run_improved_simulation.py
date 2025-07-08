@@ -22,7 +22,7 @@ def run_simulation():
     print("Creating network with 1000 nodes...")
     graph = create_large_network(num_nodes=1000, edge_probability=0.05)
     config = SimulationConfig(
-        infection_chance=0.2,
+        infection_chance=0.005,
         infection_duration=7,
         initial_infected=1
     )
