@@ -16,19 +16,18 @@ class Simulator:
     def tick(self):
         self._spread_infection()
         self._update_infections()
-        self.day += 1
         self._record_stats()
         self.day += 1
 
     def _record_stats(self):
-        counts =  {
+        counts = {
             'day': self.day,
-            'susceptible': self.graph.susceptible,
-            'infected': self.graph.infected,
-            'recovered': self.graph.recovered,
+            'susceptible': 0,  # Initialize counters
+            'infected': 0,
+            'recovered': 0
         }
 
-        for node in self.graph.nodes:
+        for node in self.graph.nodes.values():
             if node.state == State.SUSCEPTIBLE:
                 counts['susceptible'] += 1
             elif node.state == State.INFECTED:
