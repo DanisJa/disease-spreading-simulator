@@ -1,15 +1,14 @@
-# src/engine/Simulator.py
 from typing import Optional
-from ..models import Node, Graph
-from ..config import SimulationConfig
 from ..models.State import State
+from ..config.SimulationConfig import SimulationConfig
+from ..models import Graph
 from ..utils.random_utils import get_random_generator
 
 
 class Simulator:
     def __init__(self, graph: Graph, config: Optional[SimulationConfig] = None):
         self.graph = graph
-        self.config = config if config else SimulationConfig()
+        self.config = config
         self.day = 0
         self.rng = get_random_generator()
 
