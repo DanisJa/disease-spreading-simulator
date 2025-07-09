@@ -8,7 +8,7 @@ class Node:
     days_infected: int = 0
 
     def infect(self):
-        if self.state == State.SUSCEPTIBLE:
+        if self.state == State.SUSCEPTIBLE or self.state == State.RECOVERED:
             self.state = State.INFECTED
             self.days_infected = 0
 
